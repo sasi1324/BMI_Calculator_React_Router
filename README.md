@@ -1,5 +1,5 @@
 # Ex06 BMI Calculator
-## Date: 
+## Date: 26/03/2026
 
 ## AIM
 To develop a responsive and interactive Body Mass Index (BMI) Calculator using React that allows users to input their height and weight, and calculates their BMI to categorize their health status (e.g., Underweight, Normal, Overweight, Obese).
@@ -64,12 +64,133 @@ Create routing structure with react-router-dom:
 <li>Add styling using CSS or Tailwind.</li>
 
 ## PROGRAM
+## App.Jsx:
+```
+import React, { useState } from "react";
+import "./App.css";
 
+function App() {
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [bmi, setBmi] = useState(null);
+  const [category, setCategory] = useState("");
+
+  const calculateBMI = (e) => {
+    e.preventDefault();
+    if (height > 0 && weight > 0) {
+      const heightInMeters = height / 100;
+      const result = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+      setBmi(result);
+
+      if (result < 18.5) setCategory("Underweight");
+      else if (result < 24.9) setCategory("Normal weight");
+      else if (result < 29.9) setCategory("Overweight");
+      else setCategory("Obese");
+    } else {
+      alert("Please enter valid numbers!");
+    }
+  };
+
+  return (
+    <div className="container">
+      <div className="bmi-card">
+        <h1>BMI Calculator</h1>
+        <form onSubmit={calculateBMI}>
+          <input
+            type="number"
+            placeholder="Height (cm)"
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Weight (kg)"
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+          />
+          <button type="submit">Calculate</button>
+        </form>
+
+        {bmi && (
+          <div className="result">
+            <h2>Your BMI: {bmi}</h2>
+            <p>Category: {category}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+## App.Css:
+```
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to right, #dbeafe, #f0fdf4);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bmi-card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+}
+
+h1 {
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+.result h2 {
+  color: #2563eb;
+}
+```
 
 
 ## OUTPUT
 
+<img width="1735" height="950" alt="image" src="https://github.com/user-attachments/assets/79ed65b9-0c2a-4b35-83a3-9aa12d0711a4" />
 
+<img width="1613" height="883" alt="image" src="https://github.com/user-attachments/assets/d6a257e2-eb48-4536-a04d-7e59dc3c2d7c" />
+
+<img width="1721" height="949" alt="image" src="https://github.com/user-attachments/assets/609c5c9e-8c14-4bf7-a444-aaf6903a57fc" />
 
 
 ## RESULT
